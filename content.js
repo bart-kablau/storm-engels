@@ -3028,3 +3028,279 @@ window.AANMOEDIGING = {
   ]
 };
 
+
+
+/* =====================================================================
+   GRAMMATICA-OVERZICHT, de terugkerende "grammatica-kaart"
+   Storm haalde de regels (vooral de verleden-tijd-soorten) door elkaar.
+   Deze kaart leert ze NIET los maar CONTRASTEREND: één beslisboom die
+   telkens terugkomt, met per stap een mini-check. Gevoed in de engine
+   door #screen-overzicht (window.OVERZICHT) + de overzichtsfilm.
+   ===================================================================== */
+window.OVERZICHT = {
+  titel: "De grammatica-kaart",
+  intro: "Voordat je een Engelse zin maakt, stel je jezelf <b>één vraag</b>: gaat het over <b>vroeger</b> (verleden tijd) of over <b>nu / het algemeen</b>? Dat ene vraagje bepaalt welke regel je pakt. Deze kaart blijft de hele tijd in beeld, zo zie je steeds waar je bent.",
+  // De beslisboom. Elk knooppunt heeft een 'id' dat een stap kan oplichten via 'pad'.
+  kaart: [
+    { id:"verleden", label:"VROEGER", sub:"verleden tijd", kop:true, kleur:"plum",
+      kinderen:[
+        { id:"tobe", label:"’to be’ (zijn)", regel:"was / were" },
+        { id:"gewoon", label:"gewoon werkwoord", sub:"een actie: play, go, watch…", kop:true,
+          kinderen:[
+            { id:"jazin", label:"ja-zin", regel:"+ed · of eigen vorm" },
+            { id:"vraagniet", label:"vraag / niet", regel:"did / didn’t + basisvorm" }
+          ]
+        }
+      ]
+    },
+    { id:"nu", label:"NU / ALGEMEEN", kop:true, kleur:"brand",
+      kinderen:[
+        { id:"woordvolgorde", label:"woordvolgorde", regel:"plaats + tijd achteraan" },
+        { id:"bezit", label:"bezit", regel:"’s = levend · of = ding" },
+        { id:"someany", label:"some / any", regel:"some = ja · any = vraag/niet" }
+      ]
+    }
+  ],
+  stappen: [
+    {
+      kop: "Begin altijd hier 👇",
+      pad: [],
+      uitleg: [
+        "Kijk eerst naar de kaart hierboven. Bijna alle fouten met Engelse grammatica komen doordat mensen meteen gaan schrijven zonder die <b>ene vraag</b> te stellen.",
+        "Doe jij anders. Vraag je bij elke zin af: <b>gaat het over vroeger of over nu?</b> Daarna volg je gewoon de pijltjes. Klaar om de kaart stap voor stap door te lopen? 😊"
+      ]
+    },
+    {
+      kop: "Vroeger? Splits eerst: ‘to be’ of gewoon werkwoord",
+      pad: ["verleden"],
+      uitleg: [
+        "Praat je over iets dat al gebeurd is (vroeger)? Dan doe je <b>altijd eerst</b> één ding: kijken wat voor werkwoord je hebt.",
+        "Is het <b>’to be’ (zijn)</b>? Of een <b>gewoon werkwoord</b>, een actie zoals <i>play, go, watch</i>? Dat zijn twee verschillende paden op de kaart. Hier gaat het vaak mis: mensen gooien <i>was/were</i> en <i>did</i> door elkaar. Jij splitst eerst, dan kan dat niet gebeuren."
+      ],
+      vb: [
+        { en:"Storm was in the goal.", nl:"Storm stond op goal.", let:"<i>was</i> → dit is ’to be’ (zijn)." },
+        { en:"Storm went diving in the sea last week.", nl:"Storm ging vorige week duiken in de zee.", let:"<i>went</i> (van <i>go</i>) → dit is een gewoon werkwoord, een actie." }
+      ],
+      check: {
+        q: "In welke zin staat ‘to be’ (zijn)?",
+        o: ["We were at the beach.", "We watched a film."],
+        a: "We were at the beach.",
+        goed: "Precies, <i>were</i> is ’to be’. Die gaat het was/were-pad op.",
+        fout: { "We watched a film.": "<i>watched</i> is een actie (gewoon werkwoord), geen ’to be’. <i>were</i> in de andere zin is wel ’to be’." }
+      }
+    },
+    {
+      kop: "‘to be’ → was / were (en GEEN did!)",
+      pad: ["verleden","tobe"],
+      uitleg: [
+        "’To be’ (zijn) is de uitzondering met een eigen verleden tijd: <b>I / he / she / it → was</b> en <b>you / we / they → were</b>.",
+        "Het fijne: bij <b>vragen en ontkennen gebruik je hier GEEN <i>did</i></b>. Je zet <i>was/were</i> zelf vooraan (<i>Were you…?</i>) of plakt er <i>not</i> achter (<i>wasn’t / weren’t</i>)."
+      ],
+      vb: [
+        { en:"We were at the beach.", nl:"We waren op het strand.", let:"<i>we</i> → were." },
+        { en:"She wasn’t late.", nl:"Ze was niet te laat.", let:"ontkennen = <i>was</i> + <i>not</i>, dus geen did." },
+        { en:"Were you at the club?", nl:"Was je op de club?", let:"vraag = <i>were</i> vooraan, dus geen did." }
+      ],
+      check: {
+        q: "They ___ at home. (vul in)",
+        o: ["was", "were"],
+        a: "were",
+        goed: "Top! <i>they</i> (zij, meervoud) hoort bij <b>were</b>.",
+        fout: { "was": "<i>was</i> hoort bij I/he/she/it. Bij <i>they</i> gebruik je <b>were</b>." }
+      }
+    },
+    {
+      kop: "Gewoon werkwoord, ja-zin → + ed",
+      pad: ["verleden","gewoon","jazin"],
+      uitleg: [
+        "Nu de gewone werkwoorden (acties). In een <b>ja-zin</b> (gewoon iets vertellen) krijgt het werkwoord in de verleden tijd <b>+ ed</b>.",
+        "En voor iedereen hetzelfde, of het nu <i>I, you</i> of <i>Storm</i> is. <i>play → played, watch → watched, try → tried</i>."
+      ],
+      vb: [
+        { en:"Storm played hockey yesterday.", nl:"Storm speelde gisteren hockey.", let:"play + ed = played." },
+        { en:"We watched a film last night.", nl:"We keken gisteravond een film.", let:"watch + ed = watched." }
+      ],
+      check: {
+        q: "We ___ English together. (study, ja-zin)",
+        o: ["studied", "did study", "study"],
+        a: "studied",
+        goed: "Ja! In een ja-zin: study → <b>studied</b> (de -y wordt -ied).",
+        fout: { "did study":"<i>did</i> gebruik je alleen bij vragen/ontkennen, niet in een ja-zin.", "study":"in de verleden tijd moet er +ed bij: <b>studied</b>." }
+      }
+    },
+    {
+      kop: "Ja-zin, maar onregelmatig → eigen vorm",
+      pad: ["verleden","gewoon","jazin"],
+      uitleg: [
+        "Pas op: niet elk werkwoord doet braaf <i>+ed</i>. Sommige veelgebruikte werkwoorden hebben een <b>eigen verleden vorm</b> die je uit je hoofd leert.",
+        "<i>go → went, eat → ate, see → saw, have → had, win → won, write → wrote</i>. Geen <i>+ed</i> dus! Dit geldt alleen in de <b>ja-zin</b>."
+      ],
+      vb: [
+        { en:"We went to Australia.", nl:"We gingen naar Australië.", let:"go → went (geen ‘goed’!)." },
+        { en:"Storm won the match.", nl:"Storm won de wedstrijd.", let:"win → won." },
+        { en:"She wrote a postcard.", nl:"Ze schreef een ansichtkaart.", let:"write → wrote." }
+      ],
+      check: {
+        q: "Storm ___ to Australia. (go, ja-zin)",
+        o: ["went", "goed", "goes"],
+        a: "went",
+        goed: "Knap! <i>go</i> is onregelmatig → <b>went</b>.",
+        fout: { "goed":"‘goed’ bestaat niet. <i>go</i> is onregelmatig: de verleden vorm is <b>went</b>.", "goes":"<i>goes</i> is juist tegenwoordige tijd. Vroeger = <b>went</b>." }
+      }
+    },
+    {
+      kop: "⚠️ Vraag of ontkenning → did / didn’t + basisvorm",
+      pad: ["verleden","gewoon","vraagniet"],
+      uitleg: [
+        "Dit is <b>dé plek waar het misgaat</b>, let goed op. Wil je bij een gewoon werkwoord iets <b>vragen</b> of <b>ontkennen</b> in het verleden? Dan: <b>did / didn’t + het hele werkwoord zónder verandering</b>.",
+        "Dus géén <i>+ed</i> en géén eigen vorm, die zit al in het woordje <i>did</i>! ✅ <i>Did you play?</i> ❌ <i>Did you played?</i> &nbsp;·&nbsp; ✅ <i>She didn’t go.</i> ❌ <i>She didn’t went.</i>",
+        "Kijk maar hoe de vorm ‘terugklapt’: ja-zin <i>She <b>went</b> home.</i> &rarr; vraag <i>Did she <b>go</b> home?</i> &rarr; ontkennen <i>She didn’t <b>go</b> home.</i>"
+      ],
+      vb: [
+        { en:"He didn’t wear a helmet.", nl:"Hij droeg geen helm.", let:"didn’t + <b>wear</b> (basisvorm), niet ‘weared/wore’." },
+        { en:"Did they wear a helmet?", nl:"Droegen zij een helm?", let:"Did + <b>wear</b> vooraan." },
+        { en:"She didn’t see the whale.", nl:"Ze zag de walvis niet.", let:"didn’t + <b>see</b>, niet ‘saw’." }
+      ],
+      check: {
+        q: "She ___ to school. (go, ONTKENNEN)",
+        o: ["didn’t go", "didn’t went", "wasn’t go"],
+        a: "didn’t go",
+        goed: "Helemaal goed! Na <i>didn’t</i> komt de <b>basisvorm</b> go.",
+        fout: { "didn’t went":"Bijna! Na <i>did/didn’t</i> gebruik je de basisvorm <b>go</b>, niet <i>went</i>, de verleden tijd zit al in <i>did</i>.", "wasn’t go":"<i>go</i> is een gewoon werkwoord, geen ’to be’ → je gebruikt <b>didn’t</b>, niet <i>wasn’t</i>." }
+      }
+    },
+    {
+      kop: "Nu / algemeen → woordvolgorde: plaats + tijd achteraan",
+      pad: ["nu","woordvolgorde"],
+      uitleg: [
+        "Gaat het over nu of in het algemeen? Dan komt de woordvolgorde kijken. <b>Plaats (waar?)</b> en <b>tijd (wanneer?)</b> zet je in het Engels <b>achteraan</b> de zin, niet middenin zoals vaak in het Nederlands.",
+        "Staan ze allebei in de zin? Dan: <b>plaats vóór tijd</b>."
+      ],
+      vb: [
+        { en:"Storm plays in the goal on Saturdays.", nl:"Storm staat op zaterdag op goal.", let:"plaats (<i>in the goal</i>) → daarna tijd (<i>on Saturdays</i>), allebei achteraan." }
+      ],
+      check: {
+        q: "Welke zin is goed?",
+        o: ["Storm plays hockey on Saturday.", "Storm plays on Saturday hockey."],
+        a: "Storm plays hockey on Saturday.",
+        goed: "Ja! De tijd (<i>on Saturday</i>) hoort achteraan.",
+        fout: { "Storm plays on Saturday hockey.":"De tijd staat hier middenin. In het Engels hoort die achteraan: <i>Storm plays hockey on Saturday.</i>" }
+      }
+    },
+    {
+      kop: "Bezit → ’s (levend) of … of … (ding)",
+      pad: ["nu","bezit"],
+      uitleg: [
+        "Van wie of waarvan is iets? Een <b>persoon of dier</b> krijgt <b>’s</b>: <i>Storm’s teddy, the dog’s ball</i>. (Meervoud dat al op -s eindigt? Dan alleen een <b>’</b>: <i>the girls’ team</i>.)",
+        "Maar een <b>ding of plaats</b> doet het met <b>… of …</b>: <i>the colour of the car, the capital of Australia</i>."
+      ],
+      vb: [
+        { en:"Storm’s drawing", nl:"de tekening van Storm", let:"Storm is een persoon → ’s." },
+        { en:"the dog’s ball", nl:"de bal van de hond", let:"een dier → ook ’s." },
+        { en:"the screen of the laptop", nl:"het scherm van de laptop", let:"een laptop is een ding → of." }
+      ],
+      check: {
+        q: "Hoe zeg je ‘het scherm van de laptop’?",
+        o: ["the screen of the laptop", "the laptop’s screen"],
+        a: "the screen of the laptop",
+        goed: "Klopt! Een laptop is een ding → met <b>of</b>.",
+        fout: { "the laptop’s screen":"Een laptop is een ding, geen persoon/dier. Bij dingen gebruik je <b>of</b>: <i>the screen of the laptop</i>." }
+      }
+    },
+    {
+      kop: "some / any",
+      pad: ["nu","someany"],
+      uitleg: [
+        "<b>some</b> gebruik je in <b>ja-zinnen</b>, én bij een verzoek of aanbod (<i>Can I have some…? Would you like some…?</i>).",
+        "<b>any</b> gebruik je bij <b>ontkenningen</b> en bij <b>gewone vragen</b>."
+      ],
+      vb: [
+        { en:"There are some shells on the beach.", nl:"Er liggen wat schelpen op het strand.", let:"ja-zin → some." },
+        { en:"We didn’t see any whales.", nl:"We zagen geen walvissen.", let:"ontkennen → any." },
+        { en:"Can I have some chai latte, please?", nl:"Mag ik wat chai latte? (verzoek → some)", let:"verzoek → some." }
+      ],
+      check: {
+        q: "We didn’t see ___ whales.",
+        o: ["any", "some"],
+        a: "any",
+        goed: "Yes! Ontkennen → <b>any</b>.",
+        fout: { "some":"Dit is een ontkenning (didn’t) → dan gebruik je <b>any</b>." }
+      }
+    },
+    {
+      kop: "De hele kaart op een rij 🌟",
+      pad: [],
+      samenvatting: [
+        "Vraag altijd eerst: <b>vroeger of nu?</b>",
+        "Vroeger + ’to be’ → <b>was / were</b> (en géén did bij vragen/ontkennen).",
+        "Vroeger + gewoon werkwoord, ja-zin → <b>+ed</b> (regelmatig) of een <b>eigen vorm</b> (onregelmatig).",
+        "Vroeger + gewoon werkwoord, vraag/ontkennen → <b>did / didn’t + basisvorm</b> (géén -ed, géén eigen vorm!).",
+        "Nu / algemeen: plaats + tijd <b>achteraan</b> · bezit <b>’s</b> (levend) of <b>of</b> (ding) · <b>some</b> in ja-zinnen, <b>any</b> in vragen/ontkennen."
+      ],
+      uitleg: [
+        "Dit is alles, Storm. Onthoud vooral die <b>eerste splitsing</b> en dat <b>did/didn’t altijd de basisvorm</b> pakt, daar zat de meeste verwarring. Nu oefenen, door elkaar, net als op de toets. Je kunt dit! 💪"
+      ]
+    }
+  ]
+};
+
+/* Discrimination-vragen voor de Grammatica-toets: dwingen je om te KIEZEN
+   welke regel/verleden-tijd je nodig hebt (precies waar Storm op vastliep).
+   De engine voegt deze toe aan startProeftoets() (window.MIXVRAGEN). */
+window.MIXVRAGEN = [
+  { t:"mc", q:"Storm ___ to Australia last year. (go)", o:["went","goed","did go"], a:"went",
+    w:"Ja-zin + onregelmatig werkwoord → went.",
+    meer:"In een gewone ja-zin gebruik je de verleden vorm zelf. <i>go</i> is onregelmatig: <b>went</b>.",
+    fout:{ "goed":"‘goed’ bestaat niet, go is onregelmatig → went.", "did go":"<i>did</i> hoort bij vragen/ontkennen, niet in een ja-zin." } },
+  { t:"mc", q:"She ___ go to school yesterday. (ontkennen)", o:["didn’t go","didn’t went","wasn’t go"], a:"didn’t go",
+    w:"Ontkennen bij een gewoon werkwoord → didn’t + basisvorm.",
+    meer:"Na <i>didn’t</i> komt de basisvorm <b>go</b> (de verleden tijd zit al in didn’t).",
+    fout:{ "didn’t went":"Na didn’t gebruik je de basisvorm go, niet went.", "wasn’t go":"go is geen ’to be’ → didn’t, niet wasn’t." } },
+  { t:"mc", q:"They ___ at the beach all day. (to be)", o:["were","was","did be"], a:"were",
+    w:"’to be’ in het verleden: they → were.",
+    meer:"I/he/she/it = was, you/we/they = were. Bij ’to be’ gebruik je nooit did.",
+    fout:{ "was":"was hoort bij I/he/she/it; bij they → were.", "did be":"bij ’to be’ gebruik je geen did." } },
+  { t:"mc", q:"___ you play hockey yesterday?", o:["Did","Were","Was"], a:"Did",
+    w:"‘play’ is een gewoon werkwoord → vraag met Did.",
+    meer:"Een gewoon werkwoord vraag je in het verleden met <b>Did</b> + basisvorm. Were/Was horen bij ’to be’.",
+    fout:{ "Were":"Were hoort bij ’to be’, niet bij ‘play’.", "Was":"Was hoort bij ’to be’, niet bij ‘play’." } },
+  { t:"mc", q:"We ___ a film last night. (watch, ja-zin)", o:["watched","did watch","watch"], a:"watched",
+    w:"Regelmatig werkwoord in een ja-zin → +ed.",
+    meer:"watch + ed = <b>watched</b>. did gebruik je alleen bij vragen/ontkennen.",
+    fout:{ "did watch":"did hoort bij vragen/ontkennen, niet in een ja-zin.", "watch":"er moet +ed bij in de verleden tijd: watched." } },
+  { t:"mc", q:"Storm ___ late for the match. (niet, to be)", o:["wasn’t","didn’t","didn’t was"], a:"wasn’t",
+    w:"’to be’ ontkennen → was + not = wasn’t.",
+    meer:"Bij ’to be’ ontken je met was/were + not, zonder did.",
+    fout:{ "didn’t":"didn’t hoort bij gewone werkwoorden; ’to be’ doet wasn’t.", "didn’t was":"nooit did én was samen; kies wasn’t." } },
+  { t:"mc", q:"Welke zin is goed?", o:["Did she see the whale?","Did she saw the whale?"], a:"Did she see the whale?",
+    w:"Na Did → basisvorm (see).",
+    meer:"Did pakt altijd de basisvorm: <i>Did she <b>see</b>…</i>, niet <i>saw</i>.",
+    fout:{ "Did she saw the whale?":"Na Did komt de basisvorm see, niet de verleden vorm saw." } },
+  { t:"mc", q:"Hoe zeg je ‘de bal van de hond’?", o:["the dog’s ball","the ball of the dog"], a:"the dog’s ball",
+    w:"Een dier → ’s.",
+    meer:"Personen en dieren krijgen ’s: <b>the dog’s ball</b>.",
+    fout:{ "the ball of the dog":"of gebruik je bij dingen; een hond is een dier → the dog’s ball." } },
+  { t:"mc", q:"Hoe zeg je ‘de hoofdstad van Australië’?", o:["the capital of Australia","Australia’s capital"], a:"the capital of Australia",
+    w:"Een plaats/ding → of.",
+    meer:"Bij dingen en plaatsen gebruik je <b>of</b>: the capital of Australia.",
+    fout:{ "Australia’s capital":"’s is voor personen/dieren; een land/plaats doet of → the capital of Australia." } },
+  { t:"mc", q:"Do you have ___ plans for the holiday?", o:["any","some"], a:"any",
+    w:"Gewone vraag → any.",
+    meer:"Bij een gewone vraag gebruik je <b>any</b>. some hoort bij ja-zinnen (of een aanbod/verzoek).",
+    fout:{ "some":"dit is een gewone vraag → any. some zou kloppen bij een aanbod/verzoek." } }
+];
+
+/* Engelse VAK-config: surfacet de Grammatica-toets (proeftoets) + de
+   overzichtsfilm. Wordt door de engine over de defaults gemerged. */
+window.VAK = {
+  id:"engels_h5h6", store:"storm_engels_h5h6_v1",
+  titel:"Engels met Storm, Unit 5 & 6", brand:"Engels met Storm", badge:"EN",
+  mascotEmoji:"🦦", doelLabel:"Engels",
+  spraak:{ vraagLang:"nl-NL", antwoordLang:"en-GB" },
+  matching:{ stripInfinitief:true, accentTolerant:false, lidwoordTolerant:false },
+  stapelGrootte:6, wiskunde:false,
+  tegels:["leerstof","begrippen","proeftoets","spiekblad"],
+  proefTitel:"Grammatica-toets",
+  tegelProef:{ em:"📝", h:"Grammatica-toets", p:"Alle regels door elkaar, net als de toets" },
+  overzichtFilm:"grammatica-overzicht"
+};
